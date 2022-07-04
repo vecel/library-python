@@ -1,13 +1,13 @@
 from library import Book, Library
 
 def load(library: Library, filename: str):
-    '''Load contents of library database from txt file to library object
+    '''Load contents of library database from txt file to library object.
     
     Arguments:
     library - Library object to be loaded
     filename - txt file that contains library data'''
     
-    def create_book(properties: list) -> Book :
+    def fetch_book(properties: list) -> Book :
         id      = int(properties[0])
         title   =     properties[1]
         author  =     properties[2]
@@ -27,19 +27,26 @@ def load(library: Library, filename: str):
     lib_DB.readline()
 
     for record in lib_DB.readlines():
-        b = create_book(record.split(';'))
+        b = fetch_book(record.split(';'))
         library.add(b)
         
     lib_DB.close()
 
-def run():
-    '''Operate on library data'''
+def run(library: Library):
+    '''Operate on library data.
+    
+    Arguments:
+    library - Library object to be operated with'''
     pass
 
-def close():
-    '''Save changes to library file
+def save(library: Library, filename: str):
+    '''Save changes made in library to txt file.
     
-    This function clears and rewrites library file'''
+    This function clears and rewrites database (txt) file.
+    
+    Arguments:
+    library - Library object to be saved
+    filename - txt file to store saved data'''
     pass
 
 
