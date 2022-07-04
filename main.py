@@ -1,8 +1,8 @@
-from book import Book
+from library import Book, Library
 
 LIBRARY_FILE_NAME = 'library.txt'
 
-library = []
+library = Library()
 
 def load():
     '''Open library file and load its content'''
@@ -25,7 +25,7 @@ def load():
 
     for record in lib.readlines():
         b = create_book(record.split(';'))
-        library.append(b)
+        library.add(b)
         
     lib.close()
 
@@ -36,7 +36,8 @@ def run():
 def close():
     '''Save changes to library file
     
-        This function clears and rewrites library file'''
+    This function clears and rewrites library file'''
     pass
 
 load()
+library.print_catalog()
