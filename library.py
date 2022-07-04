@@ -13,7 +13,7 @@ class Book:
 
 class Library:
     def __init__(self):
-        self.books = None
+        self.books: list[Book] = None
 
     def add(self, book: Book):
         if self.books is None:
@@ -21,6 +21,9 @@ class Library:
         self.books.append(book)
 
     def display_catalog(self):
+        if self.books is None:
+            return
+
         for b in self.books:
             b.print_properties()
 
