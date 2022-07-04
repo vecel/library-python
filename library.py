@@ -8,7 +8,7 @@ class Book:
         self.country = country
 
     def print_properties(self):
-        print(self.id, self.title, self.author, self.status, self.rating, self.country)
+        print(f'{self.id}. {self.title} by {self.author} from {self.country}, status: {self.status}, rating: {self.rating}')
 
 
 class Library:
@@ -20,6 +20,20 @@ class Library:
             self.books = []
         self.books.append(book)
 
-    def print_catalog(self):
+    def display_catalog(self):
         for b in self.books:
             b.print_properties()
+
+    def get_book(self, *, id: int = None, title: str = None) -> Book:
+        '''Return book with specified id or title, if neither is found return None.
+        
+        This function takes up to two named arguments: book's id and title'''
+
+        if id == None and title == None:
+            return None
+
+        for b in self.books:
+            if (id is None or b.id == id) and (title is None or b.title == title):
+                return b
+        
+        return None
