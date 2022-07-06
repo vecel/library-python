@@ -6,7 +6,12 @@ def load(library: Library, filename: str):
     Arguments:
     library - Library object to be loaded
     filename - txt file that contains library data'''
-    
+
+    NO_FILE_MSG      = f'Cannot find {filename}, Library not loaded.'    
+    ASK_MSG          = f'Do you want to create {filename} file? [y/n]\n'
+    INIT_DB_TEXT     = 'id;title;author;status;rating;country;\n'
+    DB_CREATED_MSG = f'Database {filename} succesfully created!'
+
     def fetch_book(properties: list) -> Book :
         id      = int(properties[0])
         title   =     properties[1]
@@ -16,11 +21,21 @@ def load(library: Library, filename: str):
         country = properties[5]
         return Book(id, title, author, status, rating, country)
 
+    def create_database(db_name: str):
+        with open(db_name, 'x') as db:
+            db.write(INIT_DB_TEXT)
+
+        print(DB_CREATED_MSG)
 
     try:
-        lib_DB = open(filename)
+        lib_DB = open(filename, 'r')
     except:
-        print(f'Cannot find {filename}, Library not loaded.')
+        print(NO_FILE_MSG)
+
+        ans = input(ASK_MSG).lower()
+        if ans == 'y':
+            create_database(filename)
+        
         return
 
     # skip first line
@@ -54,5 +69,5 @@ LIBRARY_FILE_NAME = 'library.txt'
 
 library = Library()
 
-load(library, LIBRARY_FILE_NAME)
+load(library, 'library.txt')
 library.display_catalog()
